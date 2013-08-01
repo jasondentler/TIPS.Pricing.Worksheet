@@ -16,6 +16,11 @@ namespace TIPS.Pricing.UI
             bundles.Add(new StyleBundle("~/bundles/lib.css").Include(
                 "~/css/bootstrap.css",
                 "~/css/typeahead.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/site.css").Include(
+                "~/css/site.css"));
+
+
         }
     }
 }

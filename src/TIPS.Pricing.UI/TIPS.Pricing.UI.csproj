@@ -164,9 +164,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\NinjectDependencyResolver.cs" />
-    <Compile Include="App_Start\NinjectDependencyScope.cs" />
-    <Compile Include="App_Start\WebModule.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -174,11 +171,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaleSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\bootstrap.css" />
+    <Content Include="css\site.css" />
     <Content Include="css\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -188,7 +185,9 @@
     <Content Include="js\hogan-2.0.0.js" />
     <Content Include="js\jquery-2.0.3.js" />
     <Content Include="js\typeahead.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -201,9 +200,21 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TIPS.Pricing.UI.Wireup\TIPS.Pricing.UI.Wireup.csproj">
+      <Project>{8c793ca4-d85d-41b3-86a4-814a67879950}</Project>
+      <Name>TIPS.Pricing.UI.Wireup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TIPS.Pricing\TIPS.Pricing.csproj">
+      <Project>{dbc814fd-a734-4184-8fad-13949adff657}</Project>
+      <Name>TIPS.Pricing</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -221,7 +232,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>54594</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:33200/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

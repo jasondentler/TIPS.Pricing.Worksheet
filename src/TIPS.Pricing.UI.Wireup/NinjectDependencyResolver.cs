@@ -1,7 +1,7 @@
 using System.Web.Http.Dependencies;
 using Ninject;
 
-namespace TIPS.Pricing.UI
+namespace TIPS.Pricing.UI.Wireup
 {
     public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
     {

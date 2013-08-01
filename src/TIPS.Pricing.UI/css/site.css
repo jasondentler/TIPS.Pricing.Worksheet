@@ -1,0 +1,26 @@
+﻿.suggestion {
+    border-top: 1px solid black;
+}
+
+.suggestion:first {
+    border-top: none;
+}
+
+.suggestion .saleId {
+    font-size: 0.8em;
+}
+
+.suggestion .jobNumber {
+    float: right;
+    font-size: 0.8em;
+}
+
+.suggestion .customerName {
+    white-space: nowrap !important;
+    overflow: hidden;
+}
+
+.suggestion .community
+{
+    font-size: 0.8em;
+}

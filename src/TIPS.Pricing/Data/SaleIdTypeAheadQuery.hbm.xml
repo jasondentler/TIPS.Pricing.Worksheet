@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing">
+  <class name="SaleSummary">
+    <id name="SaleId" />
+    <property name="JobNumber" />
+    <property name="Address" />
+    <property name="CommunityCode" />
+    <property name="CommunityName" />
+    <property name="MarketCode" />
+    <property name="MarketName" />
+    <property name="CustomerName" />
+    <property name="PlanNumber" />
+    <property name="Elevation" />
+  </class>
+  <sql-query name="SaleIdTypeAhead">
+    <query-param name="Keywords" type="string"/>
+    <return class="SaleSummary" />
+<![CDATA[
+DECLARE @text varchar(MAX)
+SET @text = :Keywords
+
+DECLARE @words TABLE (
+	pos smallint,
+	value varchar(MAX)
+)
+
+SET @text = RTRIM(@text)
+ 
+DECLARE @delims varchar(10) 
+SET @delims = ' ,:/-'
+DECLARE @pos smallint, @i smallint, @s varchar(8000)
+ 
+SET @pos = 1 
+ 
+WHILE @pos < LEN(@text) 
+    AND CHARINDEX(SUBSTRING(@text, @pos, 1), @delims) > 0 
+    SET @pos = @pos + 1 
+ 
+WHILE @pos <= LEN(@text) 
+BEGIN 
+    SET @i = PATINDEX('%[' + @delims + ']%', 
+        SUBSTRING(@text, @pos, len(@text) - @pos + 1)) 
+    IF @i > 0 
+    BEGIN 
+        SET @i = @i + @pos - 1 
+        IF @i > @pos 
+        BEGIN 
+        -- @i now holds the earliest delimiter in the string
+        SET @s = SUBSTRING(@text, @pos, @i - @pos)
+        INSERT INTO @words 
+        VALUES (@pos, @s)
+        END 
+        SET @pos = @i + 1 
+ 
+        WHILE @pos < LEN(@text) 
+        AND CHARINDEX(SUBSTRING(@text, @pos, 1), @delims) > 0 
+        SET @pos = @pos + 1 
+    END
+    ELSE 
+    BEGIN
+        SET @s = SUBSTRING(@text, @pos, LEN(@text) - @pos + 1)
+        INSERT INTO @words 
+        VALUES (@pos, @s) SET @pos = LEN(@text) + 1
+    END 
+END
+-- remove common words that we don't want to search for 
+DELETE FROM @words 
+WHERE value IN ('an', 'the', 'of', 'and', '&') 
+
+SELECT TOP 8
+	so.SaleId,
+	saj.JobNumber,
+	job.Address,
+	job.CommunityId AS CommunityCode,
+	ISNULL(com.MarketingName, com.Name) AS CommunityName,
+	com.CityId AS MarketCode,
+	city.Name AS MarketName,
+	ISNULL(contact.ContractName, contact.FirstLast) AS CustomerName,
+	[plan].PlanNumber,
+	[plan].Elevation,
+	rankedSaleIds.Ranking
+FROM SALE_Opportunity so
+	INNER JOIN SALE_ApprovalJob saj
+		ON so.SaleId = saj.SaleId
+	INNER JOIN JOB_Jobs job
+		ON saj.JobNumber = job.JobNumber
+	INNER JOIN COM_Communities com
+		ON job.CommunityId = com.CommunityId
+	INNER JOIN LKUP_Cities city
+		ON com.CityId = city.CityId
+	INNER JOIN CRM_Opportunity op
+		ON so.OpportunityId = op.OpportunityId
+	INNER JOIN CRM_Contacts contact
+		ON op.ContactId = contact.ContactId
+	INNER JOIN JOB_Plans [plan]
+		ON saj.PlanId = [plan].PlanId
+	INNER JOIN
+		(
+			SELECT SaleId, SUM(Ranking) AS Ranking
+			FROM
+			(
+				SELECT 
+					so.SaleId, 
+					CASE
+						WHEN CAST(so.SaleId AS varchar(MAX)) = w.value THEN 1000 
+						WHEN saj.JobNumber = w.value THEN 1000
+						WHEN LEN(w.value) > 0 AND contact.FirstName LIKE '%' + w.value + '%' THEN LEN(w.value) * 10
+						WHEN LEN(w.value) > 0 AND contact.LastName LIKE '%' + w.value + '%' THEN LEN(w.value) * 10
+						WHEN LEN(w.value) > 1 AND job.Address LIKE '%' + w.value + '%' THEN 10
+						WHEN LEN(w.value) > 1 AND com.Name LIKE '%' + w.value + '%' THEN 10
+						WHEN LEN(w.value) > 1 AND com.MarketingName LIKE '%' + w.value + '%' THEN 10
+						WHEN com.CommunityId = w.value THEN 1
+						ELSE 0
+					END AS Ranking
+				FROM SALE_Opportunity so
+					INNER JOIN SALE_ApprovalJob saj
+						ON so.SaleId = saj.SaleId
+					INNER JOIN JOB_Jobs job
+						ON saj.JobNumber = job.JobNumber
+					INNER JOIN COM_Communities com
+						ON job.CommunityId = com.CommunityId
+					INNER JOIN LKUP_Cities city
+						ON com.CityId = city.CityId
+					INNER JOIN CRM_Opportunity op
+						ON so.OpportunityId = op.OpportunityId
+					INNER JOIN CRM_Contacts contact
+						ON op.ContactId = contact.ContactId
+					INNER JOIN JOB_Plans [plan]
+						ON saj.PlanId = [plan].PlanId
+					CROSS JOIN @words w
+				WHERE 
+					so.Deleted = 0 AND
+					saj.Active = 1 AND
+					job.Deleted = 0 AND
+					com.Deleted = 0 AND
+					city.Deleted = 0 AND
+					op.Deleted = 0 AND
+					contact.Deleted = 0 AND
+					[plan].Deleted = 0
+				) AS data
+			GROUP BY data.SaleId
+		) AS rankedSaleIds
+		ON so.SaleId = rankedSaleIds.SaleId
+WHERE rankedSaleIds.Ranking > 0
+ORDER BY rankedSaleIds.Ranking DESC
+]]>
+  </sql-query>
+</hibernate-mapping>

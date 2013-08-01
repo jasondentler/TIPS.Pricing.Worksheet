@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Ninject;
-using TIPS.Pricing.UI;
+using TIPS.Pricing.UI.Wireup;
 
 namespace TIPS.Pricing.UI
 {
@@ -20,7 +20,7 @@ namespace TIPS.Pricing.UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            new StandardKernel().Load<WebModule>();
+            new StandardKernel(new WebModule(), new NHibernateModule());
         }
     }
 }
