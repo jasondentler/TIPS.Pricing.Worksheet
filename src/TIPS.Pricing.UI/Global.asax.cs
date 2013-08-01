@@ -2,8 +2,10 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Ninject;
+using TIPS.Pricing.UI;
 
-namespace TIPS.Pricing
+namespace TIPS.Pricing.UI
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -17,6 +19,8 @@ namespace TIPS.Pricing
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            new StandardKernel().Load<WebModule>();
         }
     }
 }

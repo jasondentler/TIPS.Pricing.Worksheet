@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace TIPS.Pricing
+namespace TIPS.Pricing.UI
 {
     public class BundleConfig
     {

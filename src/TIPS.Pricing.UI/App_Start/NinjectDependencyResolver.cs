@@ -1,7 +1,7 @@
 using System.Web.Http.Dependencies;
 using Ninject;
 
-namespace TIPS.Pricing.App_Start
+namespace TIPS.Pricing.UI
 {
     public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
     {

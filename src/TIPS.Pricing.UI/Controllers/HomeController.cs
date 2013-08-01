@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace TIPS.Pricing.Controllers
+namespace TIPS.Pricing.UI.Controllers
 {
     public class HomeController : Controller
     {

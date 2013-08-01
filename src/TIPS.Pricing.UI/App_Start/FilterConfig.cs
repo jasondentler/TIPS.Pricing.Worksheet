@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace TIPS.Pricing
+namespace TIPS.Pricing.UI
 {
     public class FilterConfig
     {

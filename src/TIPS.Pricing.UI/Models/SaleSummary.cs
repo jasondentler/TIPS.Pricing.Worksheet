@@ -1,4 +1,4 @@
-﻿namespace TIPS.Pricing.Models
+﻿namespace TIPS.Pricing.UI.Models
 {
     public class SaleSummary
     {

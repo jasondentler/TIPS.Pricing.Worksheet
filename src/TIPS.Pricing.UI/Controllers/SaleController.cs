@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using TIPS.Pricing.Models;
+using TIPS.Pricing.UI.Models;
 
-namespace TIPS.Pricing.Controllers
+namespace TIPS.Pricing.UI.Controllers
 {
     public class SaleController : ApiController 
     {

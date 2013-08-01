@@ -3,7 +3,7 @@ using System.Web.Http.Dependencies;
 using Ninject;
 using Ninject.Syntax;
 
-namespace TIPS.Pricing.App_Start
+namespace TIPS.Pricing.UI
 {
     public class NinjectDependencyScope : IDependencyScope
     {
