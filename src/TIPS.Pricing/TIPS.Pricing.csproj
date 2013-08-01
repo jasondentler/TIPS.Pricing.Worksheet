@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\SaleIdTypeAheadQuery.cs" />
+    <Compile Include="Data\SelectedOptionsQuery.cs" />
+    <Compile Include="Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaleSummary.cs" />
   </ItemGroup>

@@ -1,0 +1,16 @@
+﻿@model SelectFlexOptions
+
+@Html.ValidationSummary()
+
+<form method="POST">
+    <div class="btn-group pull-right">
+        <a href="@Url.Action("StepOne", new {id = Model.SaleId})" class="btn">
+            <i class="icon-arrow-left"></i> Previous
+        </a>
+        <button type="submit" class="btn btn-primary">Next <i class="icon-arrow-right icon-white"></i></button>
+    </div>
+    <fieldset>
+        <legend>Step 2: Choose Flex Options</legend>
+    </fieldset>
+</form>
+

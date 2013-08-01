@@ -1,21 +1,24 @@
-﻿    <form>
-        <fieldset>
-            <legend>Pricing Options</legend>
-            <div class="form-group">
-                <label for="saleid">Sale Id</label>
-                <input type="text" id="saleid" class="form-control" 
-                       autocomplete="off" placeholder="Sale Id" 
-                       data-provide="typeahead" />
-            </div>
-        </fieldset>
-    </form>
+﻿@model SelectASale 
+
+@Html.ValidationSummary()
+
+<form method="POST">
+    <div class="btn-group pull-right">
+        <button type="button" class="btn disabled"><i class="icon-arrow-left"></i> Previous</button>
+        <button type="submit" class="btn btn-primary">Next <i class="icon-arrow-right icon-white"></i></button>
+    </div>
+    <fieldset>
+        <legend>Step 1: Select A Sale</legend>
+        @Html.TextBoxFor(m => m.SaleId, new {autocompleted= "off",placeholder = "Sale Id"})
+    </fieldset>
+</form>
 
 @section scripts
 {
     <script type="text/javascript">
         "use strict";
         $(function() {
-            $('#saleid').typeahead({
+            $('#@Html.IdFor(m => m.SaleId)').typeahead({
                 name: 'saleid',
                 remote: {
                     url: '/api/sale?q=%QUERY',
@@ -34,7 +37,7 @@
                     '<div class="saleId">Sale Id {{SaleId}}</div>',
                     '<p class="customerName">{{CustomerName}}</p>',
                     '<p class="address">{{Address}}</p>',
-                    '<div class="community">{{CommunityName}}</div>',
+                    '<div class="community">{{CommunityName}}, {{MarketName}}</div>',
                     '</div>'
                 ].join(''),
                 engine: Hogan

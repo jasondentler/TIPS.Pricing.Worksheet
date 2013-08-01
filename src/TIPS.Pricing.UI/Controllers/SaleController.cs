@@ -13,6 +13,9 @@ namespace TIPS.Pricing.UI.Controllers
             _saleIdTypeAheadQuery = saleIdTypeAheadQuery;
         }
         
+        /// <summary>
+        /// TypeAhead for sale selection
+        /// </summary>
         public IEnumerable<SaleSummary> Get(string q)
         {
             return _saleIdTypeAheadQuery.Execute(q);
