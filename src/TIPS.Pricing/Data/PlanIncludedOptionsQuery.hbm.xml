@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="PlanIncludedOptionDto">
+    <composite-id>
+      <key-property name="CommunityID" />
+      <key-property name="PlanID" />
+      <key-property name="PlanNumber" />
+      <key-property name="Elevation" />
+      <key-property name="OptionID" />
+    </composite-id>
+    <property name="OptionNumber" />
+    <property name="EffectiveDate" />
+    <property name="OptionCategory" />
+    <property name="Room" />
+    <property name="SubCategory" />
+    <property name="ProductType" />
+    <property name="ProductTypeGroup" />
+  </class>
+  <sql-query name="PlanIncludedOptionsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="PlanIncludedOptionDto" />
+<![CDATA[
+DECLARE @CommunityId varchar(8)
+DECLARE @JobNumber varchar(8)
+
+SELECT 
+	@CommunityId = job.CommunityId,
+	@JobNumber = job.JobNumber
+FROM vJobSaleLookup vjsl
+	INNER JOIN JOB_Jobs job
+		ON vjsl.JobNumber = job.JobNumber
+WHERE vjsl.SaleId = :SaleId
+
+exec COM_PlanIncludedOptions_sel @CommunityId
+]]>
+  </sql-query>
+</hibernate-mapping>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="SelectedOptionDto">
+    <id name="OptionSelectionID" />
+    <property name="OptionID" />
+    <property name="CommunityID" />
+    <property name="PlanNumber" />
+    <property name="Elevation" />
+    <property name="OptionNumber" />
+    <property name="OptionType" />
+    <property name="Description" />
+    <property name="Room" />
+    <property name="OptionCategory" />
+    <property name="SubCategory" />
+    <property name="Price" />
+    <property name="StageCutoff" />
+    <property name="AttributesRequired" />
+    <property name="InGroup" />
+    <property name="HasDetails" />
+    <property name="UOM" />
+    <property name="OriginalDescription" />
+    <property name="SelectBy" />
+    <property name="Quantity" />
+    <property name="TotalPrice" />
+    <property name="PaymentType" />
+    <property name="DateSelected" />
+    <property name="SelectedAfterCutoff" />
+    <property name="Notes" />
+    <property name="MaterialBudget" />
+    <property name="LaborBudget" />
+    <property name="CreatedBy" />
+    <property name="CreatedByName" />
+    <property name="Approved" />
+    <property name="ApprovedBy" />
+    <property name="ApprovedDate" />
+    <property name="PlanIncluded" />
+    <property name="OptionInJDE" />
+    <property name="IncludedInWebPrice" />
+    <property name="HasHouseFileDoc" />
+    <property name="Family" />
+    <property name="Finish" />
+    <property name="Template" />
+    <property name="ProductLevel" />
+    <property name="ProductType" />
+    <property name="ProductTypeGroup" />
+    <property name="Item" />
+    <property name="RoomSize" />
+    <property name="RoomUOM" />
+    <property name="UnitCost" />
+    <property name="UnitCredit" />
+    <property name="MarginPercent" />
+    <property name="BaseOptionBudget" />
+    <property name="BaseBudgetCostFactor" />
+    <property name="BaseBudgetCreditFactor" />
+    <property name="WasteFactor" />
+    <property name="Proforma" />
+    <property name="RoomSizeAdditions" />
+    <property name="RoomSizeSubtractions" />
+    <property name="AdjustedRoomSize" />
+    <property name="AdjustedPrice" />
+    <property name="UseDynamicPricing" />
+    <property name="PricingUOM" />
+    <property name="MinSalesPrice" />
+  </class>
+  <sql-query name="SelectedOptionsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="SelectedOptionDto" />
+<![CDATA[
+exec JOB_JobOptions_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

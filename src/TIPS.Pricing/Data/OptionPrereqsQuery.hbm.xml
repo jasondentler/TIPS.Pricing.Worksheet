@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="OptionPrereqDto">
+    <composite-id>
+      <key-property name="OptionID" />
+      <key-property name="RequiredOptionID" />
+    </composite-id>
+    <property name="OptionNumber" />
+    <property name="RequiredOptionNumber" />
+  </class>
+  <sql-query name="OptionPrereqsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="OptionPrereqDto" />
+<![CDATA[
+DECLARE @CommunityId_op varchar(8)
+DECLARE @JobNumber_op varchar(8)
+
+SELECT 
+	@CommunityId_op = job.CommunityId,
+	@JobNumber_op = job.JobNumber
+FROM vJobSaleLookup vjsl
+	INNER JOIN JOB_Jobs job
+		ON vjsl.JobNumber = job.JobNumber
+WHERE vjsl.SaleId = :SaleId
+
+exec COM_OptionPrerequisites_sel @CommunityId = CommunityId_op
+]]>
+  </sql-query>
+</hibernate-mapping>

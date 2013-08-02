@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="IncentiveDto">
+    <id name="OptionSelectionID" />
+    <property name="SaleID" />
+    <property name="OptionID" />
+    <property name="Description" />
+    <property name="Quantity" />
+    <property name="Price" />
+    <property name="TotalPrice" />
+    <property name="PaymentType" />
+    <property name="DateSelected" />
+    <property name="SelectedAfterCutoff" />
+    <property name="Notes" />
+    <property name="OptionInJDE" />
+    <property name="OriginalDescription" />
+    <property name="SOP_ID" />
+    <property name="JSE_ID" />
+    <property name="CreatedBy" />
+    <property name="CreatedDate" />
+    <property name="ChangedBy" />
+    <property name="ChangedDate" />
+    <property name="Deleted" />
+    <property name="DeletedBy" />
+    <property name="DeletedDate" />
+    <property name="HasHouseFileDoc" />
+    <property name="CopiedFromID" />
+    <property name="Item" />
+    <property name="Template" />
+    <property name="UnitCost" />
+    <property name="UnitCredit" />
+    <property name="MarginPercent" />
+    <property name="WasteFactor" />
+    <property name="BaseOptionBudget" />
+    <property name="BaseBudgetCostFactor" />
+    <property name="BaseBudgetCreditFactor" />
+    <property name="Proforma" />
+    <property name="MaterialBudget" />
+    <property name="LaborBudget" />
+    <property name="OptionNumber" />
+    <property name="Approved" />
+    <property name="ApprovedDate" />
+    <property name="ApprovedBy" />
+    <property name="OptionCategory" />
+    <property name="Room" />
+    <property name="SubCategory" />
+    <property name="StageCutoff" />
+  </class>
+  <sql-query name="IncentivesQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="IncentiveDto" />
+<![CDATA[
+exec JOB_Incentives_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

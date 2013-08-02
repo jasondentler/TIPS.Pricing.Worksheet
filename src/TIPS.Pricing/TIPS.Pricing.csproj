@@ -48,11 +48,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AvailableOptionDto.cs" />
+    <Compile Include="Data\OptionPrereqDto.cs" />
+    <Compile Include="Data\HCRDto.cs" />
+    <Compile Include="Data\IncentiveDto.cs" />
+    <Compile Include="Data\OptionExclusionDto.cs" />
+    <Compile Include="Data\SelectedPlanIncludedOptionDto.cs" />
+    <Compile Include="Data\PlanIncludedOptionDto.cs" />
+    <Compile Include="Data\PlanRoomDimensionDto.cs" />
+    <Compile Include="Data\PlanRoomDto.cs" />
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\SaleIdTypeAheadQuery.cs" />
-    <Compile Include="Data\SelectedOptionsQuery.cs" />
-    <Compile Include="Option.cs" />
+    <Compile Include="Data\SaleQuery.cs" />
+    <Compile Include="Data\SelectedOptionDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaleData.cs" />
     <Compile Include="SaleSummary.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +70,56 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\SaleIdTypeAheadQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\PlanRoomsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\PlanRoomDimensionsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\SelectedOptionsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\PlanIncludedOptionsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\SelectedPlanIncludedOptionsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\HCRsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\AvailableOptionsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\IncentivesQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\OptionExclusionsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\OptionPrereqsQuery.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

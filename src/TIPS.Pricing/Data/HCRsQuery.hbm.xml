@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="HCRDto">
+    <id name="HCRID"/>
+    <property name="PlanNumber" />
+    <property name="OptionNumber" />
+    <property name="OptionType" />
+    <property name="Description" />
+    <property name="Room" />
+    <property name="OptionCategory" />
+    <property name="SubCategory" />
+    <property name="StageCutoff" />
+    <property name="OriginalDescription" />
+    <property name="Quantity" />
+    <property name="Price" />
+    <property name="TotalPrice" />
+    <property name="PaymentType" />
+    <property name="MaterialBudget" />
+    <property name="LaborBudget" />
+    <property name="MarginPercent" />
+    <property name="PlanIncludedOptionID" />
+    <property name="DateSelected" />
+    <property name="Notes" />
+    <property name="RTE" />
+    <property name="Final" />
+    <property name="PricedInField" />
+    <property name="CreatedBy" />
+    <property name="CreatedByName" />
+    <property name="AttributesRequired" />
+    <property name="Approved" />
+    <property name="BuyerApproved" />
+    <property name="BuilderApproved" />
+    <property name="IncludedInWebPrice" />
+    <property name="OriginalHCR" />
+    <property name="ChangeStatus" />
+    <property name="ChangeStatusBy" />
+    <property name="ChangeStatusDate" />
+    <property name="OriginalPrice" />
+    <property name="OriginalMaterialBudget" />
+    <property name="OriginalLaborBudget" />
+    <property name="OriginalMarginPercent" />
+    <property name="HasHouseFileDoc" />
+    <property name="ReplacesFeature" />
+    <property name="LaborBudgetAdjustment" />
+    <property name="MaterialBudgetAdjustment" />
+    <property name="BudgetAdjustmentOption" />
+  </class>
+  <sql-query name="HCRsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="HCRDto" />
+<![CDATA[
+exec JOB_JobHCRs_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

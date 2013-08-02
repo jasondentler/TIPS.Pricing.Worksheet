@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="OptionExclusionDto">
+    <composite-id>
+      <key-property name="OptionID1" />
+      <key-property name="OptionID2" />
+    </composite-id>
+    <property name="OptionNumber1" />
+    <property name="OptionNumber2" />
+  </class>
+  <sql-query name="OptionExclusionsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="OptionExclusionDto" />
+<![CDATA[
+DECLARE @CommunityId_oe varchar(8)
+DECLARE @JobNumber_oe varchar(8)
+
+SELECT 
+	@CommunityId_oe = job.CommunityId,
+	@JobNumber_oe = job.JobNumber
+FROM vJobSaleLookup vjsl
+	INNER JOIN JOB_Jobs job
+		ON vjsl.JobNumber = job.JobNumber
+WHERE vjsl.SaleId = :SaleId
+
+exec COM_OptionExclusions_sel @CommunityId = CommunityId_oe
+]]>
+  </sql-query>
+</hibernate-mapping>

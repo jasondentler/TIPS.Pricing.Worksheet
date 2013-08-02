@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="PlanRoomDto">
+    <composite-id>
+      <key-property name="Room" />
+      <key-property name="OptionNumber" />
+    </composite-id>
+    <property name="Quantity" />
+  </class>
+  <sql-query name="PlanRoomsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="PlanRoomDto" />
+<![CDATA[
+exec JOB_PlanRooms_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>
