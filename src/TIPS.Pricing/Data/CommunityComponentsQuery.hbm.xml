@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="CommunityComponentDto">
+    <id name="ID" />
+    <property name="OptionID" />
+    <property name="CommunityId" />
+    <property name="ComponentItemID" />
+    <property name="ItemNumber" />
+    <property name="ProductType" />
+    <property name="ItemType" />
+    <property name="UnitCost" />
+    <property name="UnitCredit" />
+    <property name="WasteFactor" />
+    <property name="UOM" />
+    <property name="Rounding" /> 
+  </class>
+  <sql-query name="CommunityComponentsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="CommunityComponentDto" />
+<![CDATA[
+DECLARE @CommunityId_cc varchar(8)
+DECLARE @JobNumber_cc varchar(8)
+
+SELECT 
+	@CommunityId_cc = job.CommunityId,
+	@JobNumber_cc = job.JobNumber
+FROM vJobSaleLookup vjsl
+	INNER JOIN JOB_Jobs job
+		ON vjsl.JobNumber = job.JobNumber
+WHERE vjsl.SaleId = :SaleId
+
+exec COM_PackageOptionComponents_sel @CommunityId = @CommunityId_cc
+]]>
+  </sql-query>
+</hibernate-mapping>

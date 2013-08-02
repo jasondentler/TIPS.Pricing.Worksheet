@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="ComponentDto">
+    <id name="ID" />
+    <property name="OptionID" />
+    <property name="ComponentItemID" />
+    <property name="ItemNumber" />
+    <property name="ProductType" />
+    <property name="ItemType" />
+    <property name="UnitCost" />
+    <property name="UnitCredit" />
+    <property name="WasteFactor" />
+    <property name="UOM" />
+    <property name="Rounding" /> 
+  </class>
+  <sql-query name="ComponentsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="ComponentDto" />
+<![CDATA[
+exec JOB_PackageOptionComponents_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

@@ -26,5 +26,16 @@ namespace TIPS.Pricing.Data
 
         internal List<OptionPrereqDto> OptionPrereqs { get; set; }
 
+        internal List<ComponentDto> Components { get; set; }
+
+        internal List<CommunityComponentDto> CommunityComponents { get; set; }
+
+        internal List<AssemblyDto> Assemblies { get; set; }
+
+        internal List<CommunityAssemblyDto> CommunityAssemblies { get; set; }
+
+        internal List<CommunityItemDto> CommunityItems { get; set; }
+
+        internal List<ItemDto> Items { get; set; }
     }
 }

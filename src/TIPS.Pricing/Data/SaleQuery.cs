@@ -51,10 +51,54 @@ namespace TIPS.Pricing.Data
                                        .SetParameter("SaleId", saleId)
                                        .Future<OptionPrereqDto>();
 
+            var components = Session.GetNamedQuery("ComponentsQuery")
+                                    .SetParameter("SaleId", saleId)
+                                    .Future<ComponentDto>();
+
+            var communityComponents = Session.GetNamedQuery("CommunityComponentsQuery")
+                                             .SetParameter("SaleId", saleId)
+                                             .Future<CommunityComponentDto>();
+
+            var assemblies = Session.GetNamedQuery("AssembliesQuery")
+                                    .SetParameter("SaleId", saleId)
+                                    .Future<AssemblyDto>();
+
+            var communityAssemblies = Session.GetNamedQuery("CommunityAssembliesQuery")
+                                             .SetParameter("SaleId", saleId)
+                                             .Future<CommunityAssemblyDto>();
+
+            var items = Session.GetNamedQuery("ItemsQuery")
+                                        .SetParameter("SaleId", saleId)
+                                        .Future<ItemDto>();
+
+            var communityItems = Session.GetNamedQuery("CommunityItemsQuery")
+                                        .SetParameter("SaleId", saleId)
+                                        .Future<CommunityItemDto>();
+
             var sale = Session.GetNamedQuery("SaleQuery")
                               .SetParameter("SaleId", saleId)
                               .FutureValue<SaleDto>();
 
+            availableOptions = availableOptions
+                .Where(dto => string.IsNullOrWhiteSpace(dto.Elevation) || dto.Elevation == sale.Value.Elevation);
+
+            var allOptionIds = selectedOptions.Select(dto => dto.OptionID ?? 0)
+                                              .Union(availableOptions.Select(dto => dto.OptionID))
+                                              .Union(planIncludedOptions.Select(dto => dto.OptionID))
+                                              .Union(selectedPlanIncludedOptions.Select(dto => dto.OptionID))
+                                              .Union(hcrs.Select(dto => dto.PlanIncludedOptionID ?? 0))
+                                              .Union(incentives.Select(dto => dto.OptionID ?? 0))
+                                              .Distinct()
+                                              .ToArray();
+
+            components = components.Where(dto => allOptionIds.Contains(dto.OptionID));
+            communityComponents = communityComponents.Where(dto => allOptionIds.Contains(dto.OptionID));
+            assemblies = assemblies.Where(dto => allOptionIds.Contains(dto.OptionID));
+            communityAssemblies = communityAssemblies
+                .Where(dto => dto.PlanNumber == sale.Value.PlanNumber && dto.Elevation == sale.Value.Elevation);
+
+            items = items.Where(dto => !dto.OptionID.HasValue || allOptionIds.Contains(dto.OptionID.Value));
+            
             var data = new SaleCompositeData()
                 {
                     Sale = sale.Value,
@@ -67,7 +111,13 @@ namespace TIPS.Pricing.Data
                     AvailableOptions = availableOptions.ToList(),
                     Incentives = incentives.ToList(),
                     OptionExclusions = optionExclusions.ToList(),
-                    OptionPrereqs = optionPrereqs.ToList()
+                    OptionPrereqs = optionPrereqs.ToList(),
+                    Components = components.ToList(),
+                    CommunityComponents = communityComponents.ToList(),
+                    Assemblies = assemblies.ToList(),
+                    CommunityAssemblies = communityAssemblies.ToList(),
+                    Items = items.ToList(),
+                    CommunityItems = communityItems.ToList()
                 };
 
             return data;

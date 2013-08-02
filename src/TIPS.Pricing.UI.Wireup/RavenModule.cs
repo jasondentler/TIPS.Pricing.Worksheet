@@ -24,9 +24,9 @@ namespace TIPS.Pricing.UI.Wireup
                   .ToMethod(ctx => ctx.Kernel.Get<IDocumentStore>().OpenSession())
                   .InRequestScope();
 
-            Kernel.BindFilter<RavenMvcFilter>(FilterScope.Global, 0);
+            //Kernel.BindFilter<RavenMvcFilter>(FilterScope.Global, 0);
 
-            Kernel.BindHttpFilter<RavenWebApiFilter>(System.Web.Http.Filters.FilterScope.Global);
+            //Kernel.BindHttpFilter<RavenWebApiFilter>(System.Web.Http.Filters.FilterScope.Global);
         }
     }
 }

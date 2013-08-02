@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="CommunityItemDto">
+    <id name="ItemID" />
+    <property name="ItemNumber" />
+    <property name="ItemType" />
+    <property name="ProductType" />
+    <property name="UnitCost" />
+    <property name="UnitCredit" />
+    <property name="WasteFactor" />
+    <property name="UOM" />
+    <property name="Rounding" />
+    <property name="OppositeItemID" />
+    <property name="Taxable" />
+    <property name="InvalidPricing" />
+  </class>
+  <sql-query name="CommunityItemsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="CommunityItemDto" />
+<![CDATA[
+DECLARE @CommunityId_ci varchar(8)
+DECLARE @JobNumber_ci varchar(8)
+
+SELECT 
+	@CommunityId_ci = job.CommunityId,
+	@JobNumber_ci = job.JobNumber
+FROM vJobSaleLookup vjsl
+	INNER JOIN JOB_Jobs job
+		ON vjsl.JobNumber = job.JobNumber
+WHERE vjsl.SaleId = :SaleId
+
+exec COM_Items_sel @CommunityId = @CommunityId_ci
+]]>
+  </sql-query>
+</hibernate-mapping>

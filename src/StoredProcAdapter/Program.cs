@@ -21,9 +21,9 @@ namespace StoredProcAdapter
         {
             var connStr = ConfigurationManager.ConnectionStrings["sql"].ConnectionString;
             using (var conn = new SqlConnection(connStr))
-            using (var cmd = new SqlCommand("SELECT * FROM vJobSaleLookup WHERE SaleId = @SaleId", conn))
+            using (var cmd = new SqlCommand("JOB_Items_sel", conn))
             {
-                //cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("SaleId", SqlDbType.BigInt) { Value = (long)210162 });
                 //cmd.Parameters.Add(new SqlParameter("CommunityId", SqlDbType.VarChar, 8) { Value = "18340000" });
                 //cmd.Parameters.Add(new SqlParameter("JobNumber", SqlDbType.VarChar, 8) { Value = "18340039" });

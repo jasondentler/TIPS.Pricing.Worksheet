@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="ItemDto">
+    <id name="ID" />
+    <property name="OptionID" />
+    <property name="ItemID" />
+    <property name="ItemNumber" />
+    <property name="ItemType" />
+    <property name="ProductType" />
+    <property name="UnitCost" />
+    <property name="UnitCredit" />
+    <property name="WasteFactor" />
+    <property name="UOM" />
+    <property name="Rounding" />
+    <property name="OppositeItemID" />
+    <property name="Taxable" />
+  </class>
+  <sql-query name="ItemsQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="ItemDto" />
+<![CDATA[
+exec JOB_Items_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

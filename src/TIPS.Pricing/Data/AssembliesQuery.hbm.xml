@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="AssemblyDto">
+    <id name="ID" />
+    <property name="OptionID" />
+    <property name="AssemblyItemID" />
+    <property name="Swing" />
+    <property name="ComponentItemID" />
+    <property name="OppositeItemID" />
+    <property name="AssemblyQuantity" />
+    <property name="ProductType" />
+    <property name="ComponentItemType" />
+  </class>
+  <sql-query name="AssembliesQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="AssemblyDto" />
+<![CDATA[
+exec JOB_Assemblies_sel @SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

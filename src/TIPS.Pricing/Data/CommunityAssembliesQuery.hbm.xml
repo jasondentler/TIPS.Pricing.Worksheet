@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="CommunityAssemblyDto">
+    <composite-id>
+      <key-property name="PlanNumber" />
+      <key-property name="Elevation" />
+      <key-property name="AssemblyItemID" />
+    </composite-id>
+    <property name="Swing" />
+    <property name="ComponentItemID" />
+    <property name="OppositeItemID" />
+    <property name="AssemblyQuantity" />
+    <property name="ProductType" />
+    <property name="ComponentItemType" />
+  </class>
+  <sql-query name="CommunityAssembliesQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="CommunityAssemblyDto" />
+<![CDATA[
+DECLARE @CommunityId_ca varchar(8)
+DECLARE @JobNumber_ca varchar(8)
+
+SELECT 
+	@CommunityId_ca = job.CommunityId,
+	@JobNumber_ca = job.JobNumber
+FROM vJobSaleLookup vjsl
+	INNER JOIN JOB_Jobs job
+		ON vjsl.JobNumber = job.JobNumber
+WHERE vjsl.SaleId = :SaleId
+
+exec COM_Assemblies_sel @CommunityId = @CommunityId_ca
+]]>
+  </sql-query>
+</hibernate-mapping>

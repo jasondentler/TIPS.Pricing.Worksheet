@@ -59,12 +59,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapperMaps.cs" />
+    <Compile Include="Data\AssemblyDto.cs" />
     <Compile Include="Data\AvailableOptionDto.cs" />
+    <Compile Include="Data\CommunityComponentDto.cs" />
+    <Compile Include="Data\CommunityAssemblyDto.cs" />
+    <Compile Include="Data\CommunityItemDto.cs" />
+    <Compile Include="Data\ItemDto.cs" />
     <Compile Include="Data\OptionDtoExtensions.cs" />
     <Compile Include="Data\OptionPrereqDto.cs" />
     <Compile Include="Data\HCRDto.cs" />
     <Compile Include="Data\IncentiveDto.cs" />
     <Compile Include="Data\OptionExclusionDto.cs" />
+    <Compile Include="Data\ComponentDto.cs" />
     <Compile Include="Data\SaleDto.cs" />
     <Compile Include="Data\SelectedPlanIncludedOptionDto.cs" />
     <Compile Include="Data\PlanIncludedOptionDto.cs" />
@@ -146,6 +152,36 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\SaleQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\ComponentsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\CommunityComponentsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\AssembliesQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\CommunityAssembliesQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\CommunityItemsQuery.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\ItemsQuery.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
