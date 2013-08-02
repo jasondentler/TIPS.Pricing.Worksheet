@@ -20,7 +20,7 @@ namespace TIPS.Pricing.UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            new StandardKernel(new WebModule(), new NHibernateModule());
+            new StandardKernel(new WebModule(), new NHibernateModule(), new RavenModule());
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace TIPS.Pricing.Data
+﻿namespace TIPS.Pricing.Data
 {
-    public class SelectedPlanIncludedOptionDto 
+    internal class SelectedPlanIncludedOptionDto 
     {
         public virtual long OptionID { get; set; }
 

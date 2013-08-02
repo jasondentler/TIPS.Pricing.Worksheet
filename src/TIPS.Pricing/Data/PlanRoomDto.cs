@@ -2,7 +2,7 @@
 
 namespace TIPS.Pricing.Data
 {
-    public class PlanRoomDto : IEquatable<PlanRoomDto>
+    internal class PlanRoomDto : IEquatable<PlanRoomDto>
     {
         public virtual string Room { get; set; }
         public virtual string OptionNumber { get; set; }

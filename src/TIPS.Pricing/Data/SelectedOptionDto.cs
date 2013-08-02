@@ -2,8 +2,9 @@
 
 namespace TIPS.Pricing.Data
 {
-    public class SelectedOptionDto
+    internal class SelectedOptionDto : IOptionDto
     {
+
         public virtual long OptionSelectionID { get; set; }
         public virtual long? OptionID { get; set; }
         public virtual string CommunityID { get; set; }
@@ -64,5 +65,6 @@ namespace TIPS.Pricing.Data
         public virtual bool? UseDynamicPricing { get; set; }
         public virtual string PricingUOM { get; set; }
         public virtual decimal? MinSalesPrice { get; set; }
+
     }
 }

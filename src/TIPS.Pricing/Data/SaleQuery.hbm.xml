@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
+  <class name="SaleDto">
+    <id name="SaleID" />
+    <property name="OpportunityID" />
+    <property name="JobNumber" />
+    <property name="JobType" />
+    <property name="RecordType" />
+    <property name="ContactID" />
+    <property name="CustomerName" />
+    <property name="PlanNumber" />
+    <property name="Elevation" />
+    <property name="Swing" />
+    <property name="BasePrice" />
+    <property name="LotPremium" />
+    <property name="SaleDate" />
+    <property name="CancelDate" />
+    <property name="CloseDate" />
+  </class>
+  <sql-query name="SaleQuery">
+    <query-param name="SaleId" type="long"/>
+    <return class="SaleDto" />
+<![CDATA[
+SELECT * FROM vJobSaleLookup WHERE SaleId = :SaleId
+]]>
+  </sql-query>
+</hibernate-mapping>

@@ -2,7 +2,7 @@
 
 namespace TIPS.Pricing.Data
 {
-    public class OptionPrereqDto : IEquatable<OptionPrereqDto>
+    internal class OptionPrereqDto : IEquatable<OptionPrereqDto>
     {
         public virtual long OptionID { get; set; }
         public virtual long RequiredOptionID { get; set; }

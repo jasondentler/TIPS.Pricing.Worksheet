@@ -1,16 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TIPS.Pricing.Data;
 
-namespace TIPS.Pricing.Data
+namespace TIPS.Pricing
 {
-    internal class HCRDto
+    public class HCR
     {
-        public virtual long HCRID { get; set; }
+
+        public HCR()
+        {
+        }
+
+        internal HCR(HCRDto dto)
+        {
+        }
+
+        public virtual long Id { get; set; }
         public virtual string PlanNumber { get; set; }
-        public virtual string OptionNumber { get; set; }
+        public virtual string Number { get; set; }
         public virtual string OptionType { get; set; }
         public virtual string Description { get; set; }
         public virtual string Room { get; set; }
-        public virtual string OptionCategory { get; set; }
+        public virtual string Category { get; set; }
         public virtual string SubCategory { get; set; }
         public virtual int? StageCutoff { get; set; }
         public virtual string OriginalDescription { get; set; }
@@ -47,5 +61,6 @@ namespace TIPS.Pricing.Data
         public virtual decimal? LaborBudgetAdjustment { get; set; }
         public virtual decimal? MaterialBudgetAdjustment { get; set; }
         public virtual string BudgetAdjustmentOption { get; set; }
+
     }
 }

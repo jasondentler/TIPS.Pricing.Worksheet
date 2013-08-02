@@ -2,7 +2,7 @@
 
 namespace TIPS.Pricing.Data
 {
-    public class PlanIncludedOptionDto : IEquatable<PlanIncludedOptionDto>
+    internal class PlanIncludedOptionDto : IEquatable<PlanIncludedOptionDto>
     {
         public virtual string CommunityID { get; set; }
         public virtual int PlanID { get; set; }

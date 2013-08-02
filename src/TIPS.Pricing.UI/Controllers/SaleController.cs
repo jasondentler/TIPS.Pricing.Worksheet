@@ -23,7 +23,7 @@ namespace TIPS.Pricing.UI.Controllers
             return _saleIdTypeAheadQuery.Execute(q);
         }
 
-        public SaleData Get(int id)
+        public SaleCompositeData Get(int id)
         {
             return _saleQuery.Execute(id);
         }

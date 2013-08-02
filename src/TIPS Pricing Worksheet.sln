@@ -5,7 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TIPS.Pricing.UI", "TIPS.Pri
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0283FBEE-D0D1-4974-B4B9-E3427C00CE3B}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Users\jdentler\Desktop\nhibernate-mapping.xsd = ..\..\..\Users\jdentler\Desktop\nhibernate-mapping.xsd
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets

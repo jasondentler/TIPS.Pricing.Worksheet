@@ -2,7 +2,7 @@
 
 namespace TIPS.Pricing.Data
 {
-    public class OptionExclusionDto : IEquatable<OptionExclusionDto>
+    internal class OptionExclusionDto : IEquatable<OptionExclusionDto>
     {
         public virtual long OptionID1 { get; set; }
         public virtual string OptionNumber1 { get; set; }

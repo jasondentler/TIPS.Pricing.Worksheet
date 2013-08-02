@@ -9,7 +9,7 @@ namespace TIPS.Pricing.Data
         {
         }
 
-        public SaleData Execute(long saleId)
+        public SaleCompositeData Execute(long saleId)
         {
             var planRooms = Session.GetNamedQuery("PlanRoomsQuery")
                            .SetParameter("SaleId", saleId)
@@ -51,8 +51,13 @@ namespace TIPS.Pricing.Data
                                        .SetParameter("SaleId", saleId)
                                        .Future<OptionPrereqDto>();
 
-            var data = new SaleData()
+            var sale = Session.GetNamedQuery("SaleQuery")
+                              .SetParameter("SaleId", saleId)
+                              .FutureValue<SaleDto>();
+
+            var data = new SaleCompositeData()
                 {
+                    Sale = sale.Value,
                     PlanRooms = planRooms.ToList(),
                     PlanRoomDimensions = planRoomDimensions.ToList(),
                     SelectedOptions = selectedOptions.ToList(),

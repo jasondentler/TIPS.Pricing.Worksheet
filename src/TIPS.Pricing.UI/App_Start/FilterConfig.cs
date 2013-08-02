@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using TIPS.Pricing.UI.Wireup;
 
 namespace TIPS.Pricing.UI
 {

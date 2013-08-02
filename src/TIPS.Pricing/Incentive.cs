@@ -1,12 +1,23 @@
 ﻿using System;
+using TIPS.Pricing.Data;
 
-namespace TIPS.Pricing.Data
+namespace TIPS.Pricing
 {
-    internal class IncentiveDto 
+    public class Incentive
     {
+
+        public Incentive()
+        {
+        }
+
+        internal Incentive(IncentiveDto dto)
+        {
+        }
+
+        public virtual long Id { get; set; }
+        public virtual string Number { get; set; }
         public virtual long OptionSelectionID { get; set; }
         public virtual long? SaleID { get; set; }
-        public virtual long? OptionID { get; set; }
         public virtual string Description { get; set; }
         public virtual int? Quantity { get; set; }
         public virtual decimal? Price { get; set; }
@@ -40,13 +51,13 @@ namespace TIPS.Pricing.Data
         public virtual bool? Proforma { get; set; }
         public virtual decimal? MaterialBudget { get; set; }
         public virtual decimal? LaborBudget { get; set; }
-        public virtual string OptionNumber { get; set; }
         public virtual int? Approved { get; set; }
         public virtual DateTime? ApprovedDate { get; set; }
         public virtual string ApprovedBy { get; set; }
-        public virtual string OptionCategory { get; set; }
+        public virtual string Category { get; set; }
         public virtual string Room { get; set; }
         public virtual string SubCategory { get; set; }
         public virtual int? StageCutoff { get; set; }
+
     }
 }

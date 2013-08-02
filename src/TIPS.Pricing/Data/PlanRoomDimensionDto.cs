@@ -1,6 +1,6 @@
 ﻿namespace TIPS.Pricing.Data
 {
-    public class PlanRoomDimensionDto
+    internal class PlanRoomDimensionDto
     {
         public virtual long Id { get; set; }
         public virtual string CityId { get; set; }
