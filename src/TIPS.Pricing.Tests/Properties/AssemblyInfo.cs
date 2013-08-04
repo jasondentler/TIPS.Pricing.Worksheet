@@ -2,16 +2,14 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("TIPS.Pricing.Tests")]
-
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TIPS.Pricing")]
+[assembly: AssemblyTitle("TIPS.Pricing.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("TIPS.Pricing")]
+[assembly: AssemblyProduct("TIPS.Pricing.Tests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a6a3c64c-9056-441d-a101-fe127b280e07")]
+[assembly: Guid("33e3327f-071c-4ce8-a83e-716b1fc586ad")]
 
 // Version information for an assembly consists of the following four values:
 //
