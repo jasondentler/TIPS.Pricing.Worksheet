@@ -16,12 +16,39 @@
     <property name="SaleDate" />
     <property name="CancelDate" />
     <property name="CloseDate" />
+    <property name="Address" />
+    <property name="City" />
+    <property name="State" />
+    <property name="ZipCode" />
+    <property name="CommunityId" />
+    <property name="CommunityName" />
+    <property name="IsPurchasing20" />
   </class>
   <sql-query name="SaleQuery">
     <query-param name="SaleId" type="long"/>
     <return class="SaleDto" />
 <![CDATA[
-SELECT * FROM vJobSaleLookup WHERE SaleId = :SaleId
+SELECT 
+	jsl.*, 
+	job.Address,
+	job.City,
+	job.State,
+	job.ZipCode,
+	com.CommunityId,
+	ISNULL(com.MarketingName, com.Name) AS CommunityName,
+	CAST(CASE 
+		WHEN job.IgnorePurchasing2 = 1 THEN 0
+		WHEN EXISTS(SELECT * FROM vCommunityUnitFlags WHERE FlagName = 'PURCH20' AND CommunityId = @CommunityId AND FlagValue = 1) THEN 1
+		ELSE 0
+	END AS BIT) AS IsPurchasing20
+FROM 
+	vJobSaleLookup jsl
+	INNER JOIN JOB_Jobs job
+		ON job.JobNumber = jsl.JobNumber
+	INNER JOIN COM_Communities com
+		ON com.CommunityId = job.CommunityId
+WHERE 
+  SaleId = :SaleId
 ]]>
   </sql-query>
 </hibernate-mapping>

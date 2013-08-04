@@ -1,9 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Reflection;
 using NHibernate;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace TIPS.Pricing.Data
 {
@@ -15,28 +13,25 @@ namespace TIPS.Pricing.Data
 
         public Sale Execute(long saleId)
         {
+            var cacheFile = Path.Combine(Path.GetTempPath(), saleId + ".json");
+
+            //if (File.Exists(cacheFile))
+            //{
+            //    var deserializedData = File.ReadAllText(cacheFile);
+            //    return JsonConvert.DeserializeObject<Sale>(deserializedData);
+            //}
+
             var saleData = ExecuteQuery(saleId);
             var sale = saleData.BuildSale();
+
+            var serializedData = JsonConvert.SerializeObject(sale);
+            File.WriteAllText(cacheFile, serializedData);
+
             return sale;
         }
 
         internal SaleCompositeData ExecuteQuery(long saleId)
         {
-
-            var cacheFile = Path.Combine(Path.GetTempPath(), saleId + ".json");
-            
-
-            var dcr = new DefaultContractResolver();
-            dcr.DefaultMembersSearchFlags |= BindingFlags.NonPublic;
-            var jss = new JsonSerializerSettings();
-            jss.ContractResolver = dcr;
-
-            //if (File.Exists(cacheFile))
-            //{
-            //    var deserializedData = File.ReadAllText(cacheFile);
-            //    return JsonConvert.DeserializeObject<SaleCompositeData>(deserializedData, jss);
-            //}
-
             var planRooms = Session.GetNamedQuery("PlanRoomsQuery")
                            .SetParameter("SaleId", saleId)
                            .Future<PlanRoomDto>();
@@ -108,23 +103,6 @@ namespace TIPS.Pricing.Data
             availableOptions = availableOptions
                 .Where(dto => string.IsNullOrWhiteSpace(dto.Elevation) || dto.Elevation == sale.Value.Elevation);
 
-            //var allOptionIds = selectedOptions.Select(dto => dto.OptionID)
-            //                                  .Union(availableOptions.Select(dto => dto.OptionID))
-            //                                  .Union(planIncludedOptions.Select(dto => dto.OptionID))
-            //                                  .Union(selectedPlanIncludedOptions.Select(dto => dto.OptionID))
-            //                                  .Union(hcrs.Select(dto => dto.PlanIncludedOptionID ?? 0))
-            //                                  .Union(incentives.Select(dto => dto.OptionID ?? 0))
-            //                                  .Distinct()
-            //                                  .ToArray();
-
-            //components = components.Where(dto => allOptionIds.Contains(dto.OptionID));
-            //communityComponents = communityComponents.Where(dto => allOptionIds.Contains(dto.OptionID));
-            //assemblies = assemblies.Where(dto => allOptionIds.Contains(dto.OptionID));
-            //communityAssemblies = communityAssemblies
-            //    .Where(dto => dto.PlanNumber == sale.Value.PlanNumber && dto.Elevation == sale.Value.Elevation);
-
-            //items = items.Where(dto => !dto.OptionID.HasValue || allOptionIds.Contains(dto.OptionID.Value));
-            
             var saleCompositeData = new SaleCompositeData()
                 {
                     Sale = sale.Value,
@@ -145,9 +123,6 @@ namespace TIPS.Pricing.Data
                     Items = items.ToList(),
                     CommunityItems = communityItems.ToList()
                 };
-
-            var serializedData = JsonConvert.SerializeObject(saleCompositeData, jss);
-            File.WriteAllText(cacheFile, serializedData);
 
             return saleCompositeData;
         }

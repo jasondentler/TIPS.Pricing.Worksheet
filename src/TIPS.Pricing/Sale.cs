@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TIPS.Pricing.Data;
+﻿using System.Collections.Generic;
+using TIPS.Pricing.Pricing;
 
 namespace TIPS.Pricing
 {
@@ -27,27 +25,19 @@ namespace TIPS.Pricing
         public string Swing { get; set; }
         public decimal BasePrice { get; set; }
         public decimal LotPremium { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
+        public string CommunityId { get; set; }
+        public string CommunityName { get; set; }
+        public bool IsPurchasing20 { get; set; }
 
         public List<PlanRoom> PlanRooms { get; private set; }
         public List<PlanRoomDimension> PlanRoomDimensions { get; private set; }
         public Dictionary<long, Option> Options { get; private set; }
         public List<HCR> Hcrs { get; private set; }
         public List<Incentive> Incentives { get; private set; }
-
-        private void ParseSaleDto(SaleDto saleDto)
-        {
-            if (saleDto == null) throw new ArgumentNullException("saleDto");
-            SaleId = saleDto.SaleID;
-            OpportunityId = saleDto.OpportunityID.Value;
-            JobNumber = saleDto.JobNumber;
-            CustomerName = saleDto.CustomerName;
-            PlanNumber = saleDto.PlanNumber;
-            Elevation = saleDto.Elevation;
-            Swing = saleDto.Swing;
-            BasePrice = saleDto.BasePrice.Value;
-            LotPremium = saleDto.LotPremium.Value;
-        }
-
 
     }
 }

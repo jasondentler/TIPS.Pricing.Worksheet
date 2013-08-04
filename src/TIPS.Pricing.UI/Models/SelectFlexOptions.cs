@@ -1,9 +1,10 @@
-﻿namespace TIPS.Pricing.UI.Models
+﻿using System;
+
+namespace TIPS.Pricing.UI.Models
 {
     public class SelectFlexOptions
     {
-
-        public long SaleId { get; set; }
-
+        public Sale Sale { get; set; }
+        public Uri TipsUrl { get; set; }
     }
 }

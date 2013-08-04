@@ -19,5 +19,12 @@ namespace TIPS.Pricing.Data
         public virtual DateTime? SaleDate { get; set; }
         public virtual DateTime? CancelDate { get; set; }
         public virtual DateTime? CloseDate { get; set; }
+        public virtual string Address { get; set; }
+        public virtual string City { get; set; }
+        public virtual string State { get; set; }
+        public virtual string ZipCode { get; set; }
+        public virtual string CommunityId { get; set; }
+        public virtual string CommunityName { get; set; }
+        public virtual bool IsPurchasing20 { get; set; }
     }
 }

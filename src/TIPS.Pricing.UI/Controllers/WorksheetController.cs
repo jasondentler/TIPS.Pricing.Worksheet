@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Configuration;
 using System.Web.Mvc;
 using TIPS.Pricing.UI.Filters;
 using TIPS.Pricing.UI.Models;
@@ -8,6 +8,12 @@ namespace TIPS.Pricing.UI.Controllers
 {
     public class WorksheetController : Controller
     {
+        private readonly SaleController _saleController;
+
+        public WorksheetController(SaleController saleController)
+        {
+            _saleController = saleController;
+        }
 
         [HttpGet, ModelStateToTempData]
         public ViewResult StepOne(long? id)
@@ -29,7 +35,17 @@ namespace TIPS.Pricing.UI.Controllers
         [HttpGet]
         public ViewResult StepTwo(long id)
         {
-            return View(new SelectFlexOptions() {SaleId = id});
+            var formatString = ConfigurationManager.AppSettings["TIPSUrl"];
+            var sale = _saleController.Get(id);
+
+            sale.Price();
+
+            var tipsUrl = string.Format(formatString, sale.OpportunityId, sale.SaleId);
+            return View(new SelectFlexOptions()
+                {
+                    Sale = sale,
+                    TipsUrl = new Uri(tipsUrl, UriKind.RelativeOrAbsolute)
+                });
         }
 
     }

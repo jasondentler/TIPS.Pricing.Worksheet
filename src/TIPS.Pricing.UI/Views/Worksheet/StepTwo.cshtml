@@ -1,17 +1,39 @@
-﻿@model SelectFlexOptions
+﻿@using Newtonsoft.Json
+@model SelectFlexOptions
 
 @Html.ValidationSummary()
 
 <form method="POST">
-    <div class="btn-group pull-right">
-        <a href="@Url.Action("StepOne", new {id = Model.SaleId})" class="btn">
-            <i class="icon-arrow-left"></i> Previous
-        </a>
-        <button type="submit" class="btn btn-primary">Next <i class="icon-arrow-right icon-white"></i></button>
+    <div class="row">
+        <div class="span4">
+            <address>
+                <strong><a target="_blank" href="@Model.TipsUrl">@Model.Sale.CustomerName</a></strong><br/>
+                @Model.Sale.Address<br/>
+                @Model.Sale.City, @Model.Sale.State @Model.Sale.ZipCode<br/>
+                @Model.Sale.CommunityName <small>(@Model.Sale.JobNumber)</small>
+            </address>
+        </div>
+        <div class="span2">
+            <p>@Model.Sale.PlanNumber - @Model.Sale.Elevation - @(Model.Sale.Swing == "N" ? "North" : "South") </p>
+            <p>Base: @Model.Sale.BasePrice.ToString("C")</p>
+            @if (Model.Sale.LotPremium != 0M)
+            {
+                <p>Lot Premium: @Model.Sale.LotPremium.ToString("C")</p>
+            }
+            <p>Purchasing @(Model.Sale.IsPurchasing20? "2.0" : "1.0")</p>
+        </div>
     </div>
-    <fieldset>
-        <legend>Step 2: Choose Flex Options</legend>
-    </fieldset>
+    <div class="row">
+        <div class="btn-group pull-right">
+            <a href="@Url.Action("StepOne", new {id = Model.Sale.Id})" class="btn">
+                <i class="icon-arrow-left"></i> Previous
+            </a>
+            <button type="submit" class="btn btn-primary">Next <i class="icon-arrow-right icon-white"></i></button>
+        </div>
+        <fieldset>
+            <legend>Step 2: Choose Options</legend>
+        </fieldset>
+    </div>
 </form>
 
 @section scripts
@@ -19,11 +41,15 @@
     <script type="text/javascript">
         $(function() {
 
+            var data = @Html.Raw(JsonConvert.SerializeObject(Model.Sale));
+
             function onload(data) {
                 console.log(data);
             }
 
-            $.getJSON('/api/sale', { id: @Json.Encode(Model.SaleId) }, onload);
+            onload(data);
+
+            // $.getJSON('/api/sale', { id: @Json.Encode(Model.Sale.Id) }, onload);
         });
 
 
