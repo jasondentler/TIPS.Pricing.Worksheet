@@ -38,8 +38,6 @@ namespace TIPS.Pricing.UI.Controllers
             var formatString = ConfigurationManager.AppSettings["TIPSUrl"];
             var sale = _saleController.Get(id);
 
-            sale.Price();
-
             var tipsUrl = string.Format(formatString, sale.OpportunityId, sale.SaleId);
             return View(new SelectFlexOptions()
                 {
