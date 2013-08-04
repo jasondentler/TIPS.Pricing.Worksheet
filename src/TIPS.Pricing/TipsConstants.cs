@@ -1,6 +1,6 @@
-﻿namespace TIPS.Pricing.Data
+﻿namespace TIPS.Pricing
 {
-    internal class TipsConstants
+    public class TipsConstants
     {
 
         public class TemplatePrefixes

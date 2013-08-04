@@ -89,7 +89,6 @@
     <Compile Include="Data\SaleIdTypeAheadQuery.cs" />
     <Compile Include="Data\SaleQuery.cs" />
     <Compile Include="Data\SelectedOptionDto.cs" />
-    <Compile Include="Data\TipsConstants.cs" />
     <Compile Include="Data\IOptionDto.cs" />
     <Compile Include="HCR.cs" />
     <Compile Include="Incentive.cs" />
@@ -102,6 +101,7 @@
     <Compile Include="Data\SaleCompositeData.cs" />
     <Compile Include="Sale.cs" />
     <Compile Include="SaleSummary.cs" />
+    <Compile Include="TipsConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
