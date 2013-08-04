@@ -14,3 +14,19 @@
     </fieldset>
 </form>
 
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+
+            function onload(data) {
+                console.log(data);
+            }
+
+            $.getJSON('/api/sale', { id: @Json.Encode(Model.SaleId) }, onload);
+        });
+
+
+    </script>
+
+}

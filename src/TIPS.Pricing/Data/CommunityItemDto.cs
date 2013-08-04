@@ -1,6 +1,6 @@
 ﻿namespace TIPS.Pricing.Data
 {
-    internal class CommunityItemDto
+    internal class CommunityItemDto : IItemDto
     {
         public virtual long ItemID { get; set; }
         public virtual string ItemNumber { get; set; }

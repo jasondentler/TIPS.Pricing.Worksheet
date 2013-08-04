@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
-  <class name="CommunityComponentDto">
+  <class name="CommunityPackageComponentDto">
     <id name="ID" />
     <property name="OptionID" />
     <property name="CommunityId" />
@@ -14,9 +14,9 @@
     <property name="UOM" />
     <property name="Rounding" /> 
   </class>
-  <sql-query name="CommunityComponentsQuery">
+  <sql-query name="CommunityPackageComponentsQuery">
     <query-param name="SaleId" type="long"/>
-    <return class="CommunityComponentDto" />
+    <return class="CommunityPackageComponentDto" />
 <![CDATA[
 DECLARE @CommunityId_cc varchar(8)
 DECLARE @JobNumber_cc varchar(8)

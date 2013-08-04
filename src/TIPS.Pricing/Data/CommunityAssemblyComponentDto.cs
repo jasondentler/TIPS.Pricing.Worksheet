@@ -2,13 +2,13 @@
 
 namespace TIPS.Pricing.Data
 {
-    internal class CommunityAssemblyDto : IEquatable<CommunityAssemblyDto>
+    internal class CommunityAssemblyComponentDto : IEquatable<CommunityAssemblyComponentDto>, IAssemblyComponentDto
     {
         public virtual string PlanNumber { get; set; }
         public virtual string Elevation { get; set; }
         public virtual long AssemblyItemID { get; set; }
         public virtual string Swing { get; set; }
-        public virtual long? ComponentItemID { get; set; }
+        public virtual long ComponentItemID { get; set; }
         public virtual long? OppositeItemID { get; set; }
         public virtual decimal? AssemblyQuantity { get; set; }
         public virtual string ProductType { get; set; }
@@ -17,10 +17,10 @@ namespace TIPS.Pricing.Data
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as CommunityAssemblyDto);
+            return Equals(obj as CommunityAssemblyComponentDto);
         }
 
-        public virtual bool Equals(CommunityAssemblyDto other)
+        public virtual bool Equals(CommunityAssemblyComponentDto other)
         {
             if (other == null)
                 return false;

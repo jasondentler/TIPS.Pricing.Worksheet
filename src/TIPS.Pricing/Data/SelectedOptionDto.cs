@@ -6,7 +6,7 @@ namespace TIPS.Pricing.Data
     {
 
         public virtual long OptionSelectionID { get; set; }
-        public virtual long? OptionID { get; set; }
+        public virtual long OptionID { get; set; }
         public virtual string CommunityID { get; set; }
         public virtual string PlanNumber { get; set; }
         public virtual string Elevation { get; set; }

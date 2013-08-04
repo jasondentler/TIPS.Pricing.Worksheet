@@ -24,5 +24,10 @@
             public const string FlexSpace = "525";
             public static readonly string[] CategoryCodesWithoutProductTypes = new[] {"525", "545"};
         }
+
+        public class ItemTypes
+        {
+            public const string Assembly = "ASM";
+        }
     }
 }

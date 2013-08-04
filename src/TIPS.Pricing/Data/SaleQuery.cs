@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Reflection;
 using NHibernate;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace TIPS.Pricing.Data
 {
@@ -9,8 +13,30 @@ namespace TIPS.Pricing.Data
         {
         }
 
-        public SaleCompositeData Execute(long saleId)
+        public Sale Execute(long saleId)
         {
+            var saleData = ExecuteQuery(saleId);
+            var sale = saleData.BuildSale();
+            return sale;
+        }
+
+        internal SaleCompositeData ExecuteQuery(long saleId)
+        {
+
+            var cacheFile = Path.Combine(Path.GetTempPath(), saleId + ".json");
+            
+
+            var dcr = new DefaultContractResolver();
+            dcr.DefaultMembersSearchFlags |= BindingFlags.NonPublic;
+            var jss = new JsonSerializerSettings();
+            jss.ContractResolver = dcr;
+
+            //if (File.Exists(cacheFile))
+            //{
+            //    var deserializedData = File.ReadAllText(cacheFile);
+            //    return JsonConvert.DeserializeObject<SaleCompositeData>(deserializedData, jss);
+            //}
+
             var planRooms = Session.GetNamedQuery("PlanRoomsQuery")
                            .SetParameter("SaleId", saleId)
                            .Future<PlanRoomDto>();
@@ -51,21 +77,21 @@ namespace TIPS.Pricing.Data
                                        .SetParameter("SaleId", saleId)
                                        .Future<OptionPrereqDto>();
 
-            var components = Session.GetNamedQuery("ComponentsQuery")
+            var packageComponents = Session.GetNamedQuery("PackageComponentsQuery")
                                     .SetParameter("SaleId", saleId)
-                                    .Future<ComponentDto>();
+                                    .Future<PackageComponentDto>();
 
-            var communityComponents = Session.GetNamedQuery("CommunityComponentsQuery")
+            var communityPackageComponents = Session.GetNamedQuery("CommunityPackageComponentsQuery")
                                              .SetParameter("SaleId", saleId)
-                                             .Future<CommunityComponentDto>();
+                                             .Future<CommunityPackageComponentDto>();
 
-            var assemblies = Session.GetNamedQuery("AssembliesQuery")
+            var assemblyComponents = Session.GetNamedQuery("AssemblyComponentsQuery")
                                     .SetParameter("SaleId", saleId)
-                                    .Future<AssemblyDto>();
+                                    .Future<AssemblyComponentDto>();
 
-            var communityAssemblies = Session.GetNamedQuery("CommunityAssembliesQuery")
+            var communityAssemblyComponents = Session.GetNamedQuery("CommunityAssemblyComponentsQuery")
                                              .SetParameter("SaleId", saleId)
-                                             .Future<CommunityAssemblyDto>();
+                                             .Future<CommunityAssemblyComponentDto>();
 
             var items = Session.GetNamedQuery("ItemsQuery")
                                         .SetParameter("SaleId", saleId)
@@ -82,24 +108,24 @@ namespace TIPS.Pricing.Data
             availableOptions = availableOptions
                 .Where(dto => string.IsNullOrWhiteSpace(dto.Elevation) || dto.Elevation == sale.Value.Elevation);
 
-            var allOptionIds = selectedOptions.Select(dto => dto.OptionID ?? 0)
-                                              .Union(availableOptions.Select(dto => dto.OptionID))
-                                              .Union(planIncludedOptions.Select(dto => dto.OptionID))
-                                              .Union(selectedPlanIncludedOptions.Select(dto => dto.OptionID))
-                                              .Union(hcrs.Select(dto => dto.PlanIncludedOptionID ?? 0))
-                                              .Union(incentives.Select(dto => dto.OptionID ?? 0))
-                                              .Distinct()
-                                              .ToArray();
+            //var allOptionIds = selectedOptions.Select(dto => dto.OptionID)
+            //                                  .Union(availableOptions.Select(dto => dto.OptionID))
+            //                                  .Union(planIncludedOptions.Select(dto => dto.OptionID))
+            //                                  .Union(selectedPlanIncludedOptions.Select(dto => dto.OptionID))
+            //                                  .Union(hcrs.Select(dto => dto.PlanIncludedOptionID ?? 0))
+            //                                  .Union(incentives.Select(dto => dto.OptionID ?? 0))
+            //                                  .Distinct()
+            //                                  .ToArray();
 
-            components = components.Where(dto => allOptionIds.Contains(dto.OptionID));
-            communityComponents = communityComponents.Where(dto => allOptionIds.Contains(dto.OptionID));
-            assemblies = assemblies.Where(dto => allOptionIds.Contains(dto.OptionID));
-            communityAssemblies = communityAssemblies
-                .Where(dto => dto.PlanNumber == sale.Value.PlanNumber && dto.Elevation == sale.Value.Elevation);
+            //components = components.Where(dto => allOptionIds.Contains(dto.OptionID));
+            //communityComponents = communityComponents.Where(dto => allOptionIds.Contains(dto.OptionID));
+            //assemblies = assemblies.Where(dto => allOptionIds.Contains(dto.OptionID));
+            //communityAssemblies = communityAssemblies
+            //    .Where(dto => dto.PlanNumber == sale.Value.PlanNumber && dto.Elevation == sale.Value.Elevation);
 
-            items = items.Where(dto => !dto.OptionID.HasValue || allOptionIds.Contains(dto.OptionID.Value));
+            //items = items.Where(dto => !dto.OptionID.HasValue || allOptionIds.Contains(dto.OptionID.Value));
             
-            var data = new SaleCompositeData()
+            var saleCompositeData = new SaleCompositeData()
                 {
                     Sale = sale.Value,
                     PlanRooms = planRooms.ToList(),
@@ -112,15 +138,18 @@ namespace TIPS.Pricing.Data
                     Incentives = incentives.ToList(),
                     OptionExclusions = optionExclusions.ToList(),
                     OptionPrereqs = optionPrereqs.ToList(),
-                    Components = components.ToList(),
-                    CommunityComponents = communityComponents.ToList(),
-                    Assemblies = assemblies.ToList(),
-                    CommunityAssemblies = communityAssemblies.ToList(),
+                    PackageComponents = packageComponents.ToList(),
+                    CommunityPackageComponents = communityPackageComponents.ToList(),
+                    AssemblyComponents = assemblyComponents.ToList(),
+                    CommunityAssemblyComponents = communityAssemblyComponents.ToList(),
                     Items = items.ToList(),
                     CommunityItems = communityItems.ToList()
                 };
 
-            return data;
+            var serializedData = JsonConvert.SerializeObject(saleCompositeData, jss);
+            File.WriteAllText(cacheFile, serializedData);
+
+            return saleCompositeData;
         }
 
     }

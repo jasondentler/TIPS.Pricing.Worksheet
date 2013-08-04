@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="TIPS.Pricing" namespace="TIPS.Pricing.Data">
-  <class name="CommunityAssemblyDto">
+  <class name="CommunityAssemblyComponentDto">
     <composite-id>
       <key-property name="PlanNumber" />
       <key-property name="Elevation" />
@@ -13,9 +13,9 @@
     <property name="ProductType" />
     <property name="ComponentItemType" />
   </class>
-  <sql-query name="CommunityAssembliesQuery">
+  <sql-query name="CommunityAssemblyComponentsQuery">
     <query-param name="SaleId" type="long"/>
-    <return class="CommunityAssemblyDto" />
+    <return class="CommunityAssemblyComponentDto" />
 <![CDATA[
 DECLARE @CommunityId_ca varchar(8)
 DECLARE @JobNumber_ca varchar(8)

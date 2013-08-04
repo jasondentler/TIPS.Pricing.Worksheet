@@ -13,6 +13,7 @@ namespace TIPS.Pricing.Data
         public virtual string OptionNumber { get; set; }
         public virtual DateTime? EffectiveDate { get; set; }
         public virtual string OptionCategory { get; set; }
+
         public virtual string Room { get; set; }
         public virtual string SubCategory { get; set; }
         public virtual string ProductType { get; set; }

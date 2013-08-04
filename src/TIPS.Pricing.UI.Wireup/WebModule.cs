@@ -17,9 +17,6 @@ namespace TIPS.Pricing.UI.Wireup
 
             DependencyResolver.SetResolver(new Ninject.Web.Mvc.NinjectDependencyResolver(Kernel));
 
-            //// Install our Ninject-based IDependencyResolver into the Web API config
-            var resolver = new NinjectDependencyResolver(Kernel);
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
     }
 }

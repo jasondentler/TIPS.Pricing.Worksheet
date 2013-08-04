@@ -42,8 +42,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
@@ -118,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapperModule.cs" />
+    <Compile Include="JsonNetFormatter.cs" />
     <Compile Include="NHibernateModule.cs" />
     <Compile Include="NinjectDependencyResolver.cs" />
     <Compile Include="NinjectDependencyScope.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="RavenMvcFilter.cs" />
     <Compile Include="RavenModule.cs" />
     <Compile Include="RavenWebApiFilter.cs" />
+    <Compile Include="WebApiModule.cs" />
     <Compile Include="WebModule.cs" />
   </ItemGroup>
   <ItemGroup>

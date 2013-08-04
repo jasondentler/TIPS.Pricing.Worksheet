@@ -1,37 +1,7 @@
-﻿using System;
-using AutoMapper;
-using TIPS.Pricing.Data;
-
-namespace TIPS.Pricing
+﻿namespace TIPS.Pricing
 {
     public class Option
     {
-
-        public Option()
-        {
-        }
-
-        internal Option(SelectedOptionDto dto)
-        {
-            Mapper.Map(dto, this);
-            if (Quantity <= 0) Quantity = 1;
-        }
-
-        internal Option(AvailableOptionDto dto)
-        {
-            Mapper.Map(dto, this);
-        }
-
-        internal Option(PlanIncludedOptionDto dto)
-        {
-            Mapper.Map(dto, this);
-        }
-
-        internal Option(SelectedPlanIncludedOptionDto dto)
-        {
-            Mapper.Map(dto, this);
-        }
-
         public long Id { get; set; }
         public string Number { get; set; }
         public string Category { get; set; }

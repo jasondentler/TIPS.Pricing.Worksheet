@@ -38,6 +38,9 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
@@ -58,19 +61,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assembly.cs" />
     <Compile Include="AutoMapperMaps.cs" />
-    <Compile Include="Data\AssemblyDto.cs" />
+    <Compile Include="AssemblyComponent.cs" />
+    <Compile Include="Data\AssemblyComponentDto.cs" />
+    <Compile Include="Data\AssemblyComponentDtoExtensions.cs" />
     <Compile Include="Data\AvailableOptionDto.cs" />
-    <Compile Include="Data\CommunityComponentDto.cs" />
-    <Compile Include="Data\CommunityAssemblyDto.cs" />
+    <Compile Include="Data\CommunityPackageComponentDto.cs" />
+    <Compile Include="Data\CommunityAssemblyComponentDto.cs" />
     <Compile Include="Data\CommunityItemDto.cs" />
+    <Compile Include="Data\IAssemblyComponentDto.cs" />
+    <Compile Include="Data\IItemDto.cs" />
+    <Compile Include="Data\IPackageComponentDto.cs" />
     <Compile Include="Data\ItemDto.cs" />
+    <Compile Include="Data\ItemDtoExtensions.cs" />
     <Compile Include="Data\OptionDtoExtensions.cs" />
     <Compile Include="Data\OptionPrereqDto.cs" />
     <Compile Include="Data\HCRDto.cs" />
     <Compile Include="Data\IncentiveDto.cs" />
     <Compile Include="Data\OptionExclusionDto.cs" />
-    <Compile Include="Data\ComponentDto.cs" />
+    <Compile Include="Data\PackageComponentDto.cs" />
     <Compile Include="Data\SaleDto.cs" />
     <Compile Include="Data\SelectedPlanIncludedOptionDto.cs" />
     <Compile Include="Data\PlanIncludedOptionDto.cs" />
@@ -84,7 +94,10 @@
     <Compile Include="Data\IOptionDto.cs" />
     <Compile Include="HCR.cs" />
     <Compile Include="Incentive.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Option.cs" />
+    <Compile Include="Package.cs" />
+    <Compile Include="PackageComponent.cs" />
     <Compile Include="PlanRoom.cs" />
     <Compile Include="PlanRoomDimension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,7 +169,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\ComponentsQuery.hbm.xml">
+    <EmbeddedResource Include="Data\PackageComponentsQuery.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -166,12 +179,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\AssembliesQuery.hbm.xml">
+    <EmbeddedResource Include="Data\AssemblyComponentsQuery.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\CommunityAssembliesQuery.hbm.xml">
+    <EmbeddedResource Include="Data\CommunityAssemblyComponentsQuery.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
