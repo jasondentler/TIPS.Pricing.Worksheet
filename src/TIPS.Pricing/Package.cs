@@ -6,10 +6,10 @@ namespace TIPS.Pricing
     {
         public Package()
         {
-            Components = new List<PackageComponent>();
+            Items = new List<Item>();
         }
 
-        public List<PackageComponent> Components { get; private set; }
+        public List<Item> Items { get; private set; }
 
     }
 }

@@ -72,7 +72,6 @@
     <Compile Include="Data\CommunityItemDto.cs" />
     <Compile Include="Data\IAssemblyComponentDto.cs" />
     <Compile Include="Data\IItemDto.cs" />
-    <Compile Include="Data\IPackageComponentDto.cs" />
     <Compile Include="Data\ItemDto.cs" />
     <Compile Include="Data\ItemDtoExtensions.cs" />
     <Compile Include="Data\OptionDtoExtensions.cs" />
@@ -97,7 +96,6 @@
     <Compile Include="Item.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="Package.cs" />
-    <Compile Include="PackageComponent.cs" />
     <Compile Include="PlanRoom.cs" />
     <Compile Include="PlanRoomDimension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

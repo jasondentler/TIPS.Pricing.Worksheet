@@ -1,6 +1,6 @@
 ﻿namespace TIPS.Pricing.Data
 {
-    internal class CommunityPackageComponentDto : IPackageComponentDto
+    internal class CommunityPackageComponentDto 
     {
         public virtual long ID { get; set; }
         public virtual string CommunityId { get; set; }

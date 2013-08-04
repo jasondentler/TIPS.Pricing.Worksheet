@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -51,16 +52,23 @@ namespace TIPS.Pricing.Data
             // if item.ItemType == "ASM", then it's an assembly
             //    and components are loaded where AssemblyItemId = assembly's ItemId
 
-            var items = Items.Select(Convert).ToList();
-            var communityItems = CommunityItems.Select(Convert).ToList();
+            var items = Items
+                .Select(Convert)
+                .ToDictionary(i => i.Id, i => i);
+
+            var communityItems = CommunityItems
+                .Select(Convert)
+                .ToDictionary(i => i.Id, i => i);
 
             var packageComponents = PackageComponents
-                .Select(dto => Tuple.Create(dto.OptionID, Convert(dto, items, communityItems)))
-                .ToList();
+                .Select(dto => Tuple.Create(dto.OptionID, dto.ComponentItemID))
+                .GroupBy(t => t.Item1, t => t.Item2)
+                .ToDictionary(g => g.Key, g => g.ToArray());
 
             var communityPackageComponents = CommunityPackageComponents
-                .Select(dto => Tuple.Create(dto.OptionID, Convert(dto, items, communityItems)))
-                .ToList();
+                .Select(dto => Tuple.Create(dto.OptionID, dto.ComponentItemID))
+                .GroupBy(t => t.Item1, t => t.Item2)
+                .ToDictionary(g => g.Key, g => g.ToArray());
 
             var assemblyComponents = AssemblyComponents
                 .Select(dto => Tuple.Create(dto.AssemblyItemID, Convert(dto, Sale.Swing, items, communityItems)))
@@ -120,19 +128,40 @@ namespace TIPS.Pricing.Data
             foreach (var option in options.Values)
                 sale.Options[option.Id] = option;
 
-            foreach (var package in options.Values.OfType<Package>())
-            {
-                var components = packageComponents.Where(t => t.Item1 == package.Id).ToArray();
-                if (!components.Any())
-                    components = communityPackageComponents.Where(t => t.Item1 == package.Id).ToArray();
-                package.Components.AddRange(components.Select(t => t.Item2));
-            }
+            var packages = options.Values.OfType<Package>();
+
+            foreach (var package in packages)
+                LoadPackageComponents(package, packageComponents, communityPackageComponents, items, communityItems);
 
             sale.Hcrs.AddRange(hcrs);
             
             sale.Incentives.AddRange(incentives);
 
             return sale;
+        }
+
+        private static void LoadPackageComponents(Package package,
+                                           Dictionary<long, long[]> packageComponents,
+                                           Dictionary<long, long[]> communityPackageComponents,
+                                           Dictionary<long, Item> items,
+                                           Dictionary<long, Item> communityItems)
+        {
+            long[] componentIds;
+            if (!packageComponents.TryGetValue(package.Id, out componentIds))
+                if (!communityPackageComponents.TryGetValue(package.Id, out componentIds))
+                    throw new ApplicationException("Could not find package components for package id " + package.Id);
+
+            foreach (var componentId in componentIds)
+            {
+                Item item;
+                if (!items.TryGetValue(componentId, out item))
+                    if (!communityItems.TryGetValue(componentId, out item))
+                        throw new ApplicationException(string.Format("Package {0} uses item {1}, which was not found.",
+                                                                     package.Id, componentId));
+
+                package.Items.Add(item);
+            }
+
         }
 
         private static Option Convert(IOptionDto dto)
@@ -153,28 +182,21 @@ namespace TIPS.Pricing.Data
             return item;
         }
 
-        private static PackageComponent Convert(IPackageComponentDto dto, IEnumerable<Item> items,
-                                                IEnumerable<Item> communityItems)
-        {
-            return new PackageComponent()
-                {
-                    UnitOfMeasure = dto.UOM,
-                    ProductType = dto.ProductType,
-                    Item = items.FirstOrDefault(i => i.Id == dto.ComponentItemID)
-                           ?? communityItems.FirstOrDefault(i => i.Id == dto.ComponentItemID)
-                };
-        }
-
-        private static AssemblyComponent Convert(IAssemblyComponentDto dto, string swing, IEnumerable<Item> items,
-                                                 IEnumerable<Item> communityItems)
+        private static AssemblyComponent Convert(IAssemblyComponentDto dto, string swing, Dictionary<long, Item> items,
+                                                 Dictionary<long, Item> communityItems)
         {
             var componentItemId = dto.GetSwingAppropriateItemId(swing);
+            Item componentItem;
+
+            if (!items.TryGetValue(componentItemId, out componentItem))
+                if (!communityItems.TryGetValue(componentItemId, out componentItem))
+                    throw new ApplicationException(string.Format("Assembly {0} uses item {1}, which was not found.",
+                                                                 dto.AssemblyItemID, componentItemId));
             return new AssemblyComponent()
                 {
                     ProductType = dto.ProductType,
                     QuantityMultiplier = dto.AssemblyQuantity ?? 0M,
-                    Item = items.FirstOrDefault(i => i.Id == componentItemId)
-                           ?? communityItems.FirstOrDefault(i => i.Id == componentItemId)
+                    Item = componentItem
                 };
         }
 

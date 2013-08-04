@@ -1,6 +1,6 @@
 ﻿namespace TIPS.Pricing.Data
 {
-    internal class PackageComponentDto : IPackageComponentDto
+    internal class PackageComponentDto 
     {
         public virtual long ID { get; set; }
         public virtual long OptionID { get; set; }
