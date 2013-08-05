@@ -7,6 +7,28 @@ namespace TIPS.Pricing.Data
 {
     public class SaleCompositeData
     {
+
+        public SaleCompositeData()
+        {
+            Sale = new SaleDto();
+            PlanRooms = new List<PlanRoomDto>();
+            PlanRoomDimensions = new List<PlanRoomDimensionDto>();
+            SelectedOptions = new List<SelectedOptionDto>();
+            AvailableOptions = new List<AvailableOptionDto>();
+            PlanIncludedOptions = new List<PlanIncludedOptionDto>();
+            SelectedPlanIncludedOptions = new List<SelectedPlanIncludedOptionDto>();
+            HCRs = new List<HCRDto>();
+            Incentives = new List<IncentiveDto>();
+            OptionExclusions = new List<OptionExclusionDto>();
+            OptionPrereqs = new List<OptionPrereqDto>();
+            PackageComponents = new List<PackageComponentDto>();
+            CommunityPackageComponents = new List<CommunityPackageComponentDto>();
+            AssemblyComponents = new List<AssemblyComponentDto>();
+            CommunityAssemblyComponents = new List<CommunityAssemblyComponentDto>();
+            CommunityItems = new List<CommunityItemDto>();
+            Items = new List<ItemDto>();
+        }
+
         internal SaleDto Sale { get; set; }
 
         internal List<PlanRoomDto> PlanRooms { get; set; }

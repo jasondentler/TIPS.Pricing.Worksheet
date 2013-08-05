@@ -36,6 +36,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.7.4626.65\lib\NET40\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\packages\AutoFixture.3.6.6\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.AutoFakeItEasy">
+      <HintPath>..\packages\AutoFixture.AutoFakeItEasy.3.6.6\lib\net40\Ploeh.AutoFixture.AutoFakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.Xunit">
+      <HintPath>..\packages\AutoFixture.Xunit.3.6.6\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
+    </Reference>
     <Reference Include="Should">
       <HintPath>..\packages\Should.1.1.20\lib\Should.dll</HintPath>
     </Reference>
@@ -49,26 +64,33 @@
     <Reference Include="xunit">
       <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.7.0.1540\lib\xunit.extensions.dll</HintPath>
+    </Reference>
     <Reference Include="xunit.should">
       <HintPath>..\packages\xunit.should.1.1\lib\net35\xunit.should.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoFakeItEasyDataAttribute.cs" />
     <Compile Include="AutomapperFixture.cs" />
     <Compile Include="Data\AvailableOptionDtoTests.cs" />
     <Compile Include="Data\CommunityItemDtoTests.cs" />
     <Compile Include="Data\HCRDtoTests.cs" />
     <Compile Include="Data\IncentiveDtoTests.cs" />
     <Compile Include="Data\ItemDtoTests.cs" />
+    <Compile Include="Data\SaleCompositeDataTests.cs" />
     <Compile Include="Data\SaleDtoTests.cs" />
     <Compile Include="Data\SelectedPlanIncludedOptionDtoTests.cs" />
     <Compile Include="Data\PlanIncludedOptionDtoTests.cs" />
     <Compile Include="Data\PlanRoomDimensionDtoTests.cs" />
     <Compile Include="Data\PlanRoomDtoTests.cs" />
     <Compile Include="Data\SelectedOptionDtoTests.cs" />
+    <Compile Include="InlineAutoFakeItEasyDataAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
