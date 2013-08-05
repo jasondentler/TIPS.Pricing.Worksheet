@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -45,8 +44,8 @@ namespace TIPS.Pricing.Data
         public Sale BuildSale()
         {
 
-            var planRooms = PlanRooms.Select(dto => new PlanRoom(dto)).ToList();
-            var planRoomDimensions = PlanRoomDimensions.Select(dto => new PlanRoomDimension(dto)).ToList();
+            var planRooms = PlanRooms.Select(Mapper.Map<PlanRoom>).ToList();
+            var planRoomDimensions = PlanRoomDimensions.Select(Mapper.Map<PlanRoomDimension>).ToList();
 
             // Items & CommunityItems make up Items (non-assembly package items)
             // if item.ItemType == "ASM", then it's an assembly

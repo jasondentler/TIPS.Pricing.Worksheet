@@ -6,7 +6,7 @@ namespace TIPS.Pricing.Data
     {
         public virtual string Room { get; set; }
         public virtual string OptionNumber { get; set; }
-        public virtual string Quantity { get; set; }
+        public virtual decimal Quantity { get; set; }
 
         public override bool Equals(object obj)
         {

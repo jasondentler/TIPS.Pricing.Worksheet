@@ -7,7 +7,7 @@
     <ProjectGuid>{E2895700-A474-46F8-92AC-A51178EB6A50}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TIPS.Pricing.Tests</RootNamespace>
+    <RootNamespace>TIPS.Pricing</RootNamespace>
     <AssemblyName>TIPS.Pricing.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Should">
+      <HintPath>..\packages\Should.1.1.20\lib\Should.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,12 +49,33 @@
     <Reference Include="xunit">
       <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.should">
+      <HintPath>..\packages\xunit.should.1.1\lib\net35\xunit.should.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomapperFixture.cs" />
+    <Compile Include="Data\AvailableOptionDtoTests.cs" />
+    <Compile Include="Data\CommunityItemDtoTests.cs" />
+    <Compile Include="Data\HCRDtoTests.cs" />
+    <Compile Include="Data\IncentiveDtoTests.cs" />
+    <Compile Include="Data\ItemDtoTests.cs" />
+    <Compile Include="Data\SaleDtoTests.cs" />
+    <Compile Include="Data\SelectedPlanIncludedOptionDtoTests.cs" />
+    <Compile Include="Data\PlanIncludedOptionDtoTests.cs" />
+    <Compile Include="Data\PlanRoomDimensionDtoTests.cs" />
+    <Compile Include="Data\PlanRoomDtoTests.cs" />
+    <Compile Include="Data\SelectedOptionDtoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TIPS.Pricing\TIPS.Pricing.csproj">
+      <Project>{DBC814FD-A734-4184-8FAD-13949ADFF657}</Project>
+      <Name>TIPS.Pricing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -9,6 +9,10 @@ namespace TIPS.Pricing
         public static void Setup()
         {
 
+            Mapper.CreateMap<PlanRoomDto, PlanRoom>();
+
+            Mapper.CreateMap<PlanRoomDimensionDto, PlanRoomDimension>();
+
             Mapper.CreateMap<SaleDto, Sale>()
                   .ForMember(s => s.OpportunityId, mo => mo.ResolveUsing(dto => dto.OpportunityID.Value))
                   .ForMember(s => s.BasePrice, mo => mo.ResolveUsing(dto => dto.BasePrice.Value))
@@ -68,7 +72,7 @@ namespace TIPS.Pricing
                   .ForMember(hcr => hcr.Category, mo => mo.MapFrom(dto => dto.OptionCategory));
 
             Mapper.CreateMap<IncentiveDto, Incentive>()
-                  .ForMember(incentive => incentive.Id, mo => mo.MapFrom(dto => dto.OptionID))
+                  .ForMember(incentive => incentive.Id, mo => mo.MapFrom(dto => dto.OptionSelectionID))
                   .ForMember(incentive => incentive.Number, mo => mo.MapFrom(dto => dto.OptionNumber))
                   .ForMember(incentive => incentive.Category, mo => mo.MapFrom(dto => dto.OptionCategory));
 
